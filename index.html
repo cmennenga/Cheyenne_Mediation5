@@ -1,60 +1,99 @@
 <script src="https://cdn.jsdelivr.net/gh/netizenorg/netnet-standard-library/build/nn.min.js"></script>
-
-<!-- Creating Start Page to Pick Song -->
-<div id="start-page">
-  <h1>Pick a Song</h1>
-  <div id="button-group">
-    <button class="song-button">1</button>
-    <button class="song-button">2</button> 
-  </div>  
-</div>
-
-<!-- Designing Start Screen -->
-<style>
-  body{
-    margin: 0;
-    padding: 0;
-    background-image: url('gamebg.jpg');
-    background-size: cover;
-    background-position: center;
-    font-family: 'Impact', fantasy
-  }
-
-  #start-page {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    text-align: center;
-    color: white
-  }
+<body></body>
+<script>
+/* global nn */ 
   
-  h1 {
-    font-size: 5em;
-    margin-bottom: 36px
-  }
+//press any letter key for chaos 
   
-  #button-group {
-    display: flex;
-    gap: 60px
-  }
+let music
+const visuals = ['★', '✿', '☂', '✧', 
+                '❖', '♫', '☯', '⚔', 
+                '☀', '☁', '☾', '✩', 
+                '❀', '✶', '☘', '❄', 
+                '⚙', '❂', '⌘', '❤']
   
-  .song-button {
-    padding: 20px 90px;
-    font-size: 2.5em;
-    border: none;
-    border-radius: 15px;
-    background-color: HotPink;
-    color: white;
-    backdrop-filter: blur(5px);
-    cursor: pointer;
-    transition: transform 0.1s, background-color 0.2s
-  }
-  
-  .song-button:hover {
-    background-color: orange;
-    transform: scale(1.1)
-  }
-</style>
+const keys = {
+  a: { offset: 0.00 },
+  b: { offset: 4.62 },
+  c: { offset: 9.23 },
+  d: { offset: 13.85 },
+  e: { offset: 18.46 },
+  f: { offset: 23.08 },
+  g: { offset: 27.69 },
+  h: { offset: 32.31 },
+  i: { offset: 36.92 },
+  j: { offset: 41.54 },
+  k: { offset: 46.15 },
+  l: { offset: 50.77 },
+  m: { offset: 55.38 },
+  n: { offset: 60.00 },
+  o: { offset: 64.62 },
+  p: { offset: 69.23 },
+  q: { offset: 73.85 },
+  r: { offset: 78.46 },
+  s: { offset: 83.08 },
+  t: { offset: 87.69 },
+  u: { offset: 92.31 },
+  v: { offset: 96.92 },
+  w: { offset: 101.54 },
+  x: { offset: 106.15 },
+  y: { offset: 110.77 },
+  z: { offset: 115.38 }
+}
 
+
+function playMusic(e){
+  const k = keys[e.key.toLowerCase()]
+  if (!k) return
+  
+  const stop = 2 * 1000
+  const audio = music.cloneNode()
+  audio.currentTime = k.offset
+  audio.play()
+  setTimeout(() => audio.pause(), stop)
+  
+  const print_interval = 100
+  const start = Date.now()
+  
+  const span = nn.create('span').css({
+    fontFamily: 'monospace',
+    fontSize: '30px',
+    display: 'block',
+    margin: '5px',
+    color: 'black',
+    position: 'absolute'
+  })
+  
+  const x = Math.random() * window.innerWidth
+  const y = Math.random() * window.innerHeight
+  span.style.left = `${x}px`
+  span.style.top = `${y}px`
+  span.addTo('body')
+  
+  const printer = setInterval(() => {
+    const elapsed = Date.now() - start
+    if (elapsed > stop) {
+      clearInterval(printer)
+      return
+    }
+    const vis = nn.random(visuals)
+    span.textContent += vis
+  }, print_interval)
+}
+
+function setup () {
+  nn.get('body').css({
+    backgroundColor: 'Thistle',
+    color: 'black',
+    fontFamily: 'monospace',
+    padding: '20px'
+  })
+  
+  music = nn.create('audio')
+    .set('src', 'jazz.mp3')
+    .addTo('body')
+}
+
+nn.on('load', setup)
+nn.on('keypress', playMusic)
+</script>
