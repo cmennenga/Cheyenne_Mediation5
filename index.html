@@ -1,0 +1,59 @@
+<script src="https://cdn.jsdelivr.net/gh/netizenorg/netnet-standard-library/build/nn.min.js"></script>
+
+<!-- Creating Start Page to Pick Song -->
+<div id="start-page">
+  <h1>Pick a Song</h1>
+  <div id="button-group">
+    <button class="song-button">1</button>
+    <button class="song-button">2</button> 
+  </div>  
+</div>
+
+<!-- Designing Start Screen -->
+<style>
+  body{
+    margin: 0;
+    padding: 0;
+    background-image: 'gamebg.jpg';
+    background-size: cover;
+    background-position: center;
+    font-family: 'Impact', fantasy
+  }
+
+  #start-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    text-align: center;
+    color: white
+  }
+  
+  h1 {
+    font-size: 3em;
+    margin-bottom: 20px
+  }
+  
+  #button-group {
+    display: flex;
+    gap: 20px
+  }
+  
+  .song-button {
+    padding: 15px 30px;
+    font-size: 1.5em;
+    border: none;
+    border-radius: 10px;
+    background-color: pink;
+    color: white;
+    backdrop-filter: blur(5px);
+    cursor: pointer;
+    transition: transform 0.1s, background-color 0.2s
+  }
+  
+  .song-button:hover {
+    background-color: purple;
+    transform: scale(1.1)
+  }
+</style>
