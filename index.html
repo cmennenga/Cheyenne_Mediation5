@@ -46,7 +46,7 @@ function playMusic(e){
   const k = keys[e.key.toLowerCase()]
   if (!k) return
   
-  const stop = 3 * 1000
+  const stop = 5 * 1000
   const audio = music.cloneNode()
   audio.currentTime = k.offset
   audio.play()
