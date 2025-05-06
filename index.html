@@ -55,6 +55,7 @@ function playMusic(e){
   const print_interval = 100
   const start = Date.now()
   
+  // creating text 
   const span = nn.create('span').css({
     fontFamily: 'monospace',
     fontSize: '30px',
@@ -64,12 +65,14 @@ function playMusic(e){
     position: 'absolute'
   })
   
+  // randomizing location of text
   const x = Math.random() * window.innerWidth
   const y = Math.random() * window.innerHeight
   span.style.left = `${x}px`
   span.style.top = `${y}px`
   span.addTo('body')
   
+  // pritning text during music 
   const printer = setInterval(() => {
     const elapsed = Date.now() - start
     if (elapsed > stop) {
